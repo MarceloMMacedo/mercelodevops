@@ -6,7 +6,7 @@ curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compo
 chmod +x /usr/local/bin/docker-compose
 ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 cd /home/ubuntu
-git clone https://github.com/jonathanbaraldi/devops
+git clone https://github.com/MarceloMMacedo/mercelodevops.git
 cd devops/exercicios/app
 cd redis
 docker build -t marcelomacedo/redis:devops .
