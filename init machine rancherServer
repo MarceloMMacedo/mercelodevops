@@ -24,6 +24,9 @@ docker run -d --name nginx -p 80:80 marcelomacedo/nginx:devops
 docker ps
 docker rm -f $(docker ps -a -q)
 docker volume rm $(docker volume ls)
+cd ..
+docker-compose -f docker-compose.yml up -d
+curl <ip>:80 
 
 
 
