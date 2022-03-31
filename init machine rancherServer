@@ -1,0 +1,30 @@
+#!/bin/bash
+curl https://releases.rancher.com/install-docker/19.03.sh | sh
+usermod -aG docker ubuntu
+apt-get install git -y
+curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+cd /home/ubuntu
+git clone https://github.com/jonathanbaraldi/devops
+cd devops/exercicios/app
+cd redis
+docker build -t marcelomacedo/redis:devops .
+docker run -d --name redis -p 6379:6379 marcelomacedo/redis:devops
+docker ps
+docker logs redis
+cd ../node
+docker build -t marcelomacedo/node:devops .
+docker run -d --name node -p 8080:8080 --link redis marcelomacedo/node:devops
+docker ps 
+docker logs node
+cd ../nginx
+docker build -t marcelomacedo/nginx:devops .
+docker run -d --name nginx -p 80:80 marcelomacedo/nginx:devops
+docker ps
+docker rm -f $(docker ps -a -q)
+docker volume rm $(docker volume ls)
+
+
+
+
